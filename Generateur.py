@@ -22,7 +22,7 @@ def NumerotationCouleur(nbCouleur,quantiteCouleur):
     return numCouleur
     
 def Generation(tailleGrille):
-    nbCouleur = NombreCouleur(tailleGrille)#combien de couleurs differentes
+    nbCouleur = NombreCouleur(tailleGrille)+1#combien de couleurs differentes(+1 pour le 0 qui sera une zone vide
     quantiteCouleur = NumerotationCouleur(nbCouleur,QuantiteCouleur(nbCouleur))
     
     fineRandomColor =  False
@@ -32,7 +32,7 @@ def Generation(tailleGrille):
             fineRandomColor = False
             
             while fineRandomColor == False:
-                numCouleur = random.randint(0,nbCouleur-1)
+                numCouleur = random.randint(1,nbCouleur-1)
                 if  quantiteCouleur[numCouleur] > 0:#s'il reste cette couleur a placer
                     fineRandomColor = True
                     quantiteCouleur[numCouleur] -= 1
