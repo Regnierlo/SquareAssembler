@@ -1,1 +1,1 @@
-print("git init")
+print("git init <3")
