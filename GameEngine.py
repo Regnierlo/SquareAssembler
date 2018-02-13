@@ -4,13 +4,13 @@ def VerificationDestructionGauche(numLigne, numColonne, plateau, couleurADetruir
             if positionCouleurADetruire[numLigne][numColonne]!= couleurADetruire:
                 positionCouleurADetruire[numLigne][numColonne] = couleurADetruire
                 nombreDeCouleurAGauche += 1
-            if numColonne-1 >= 0:
-                #verification à gauche
-                nombreDeCouleurAGauche = VerificationDestructionGauche(numLigne, numColonne-1, plateau, couleurADetruire, nombreDeCouleurAGauche, positionCouleurADetruire)
-                #Plus vérification en haut
-                nombreDeCouleurAGauche += VerificationDestructionHaut(numLigne-1, numColonne, plateau, couleurADetruire, 0, positionCouleurADetruire)
-                #Plus vérification en bas
-                nombreDeCouleurAGauche += VerificationDestructionBas(numLigne+1, numColonne, plateau, couleurADetruire, 0, positionCouleurADetruire)
+                if numColonne-1 >= 0:
+                    #verification à gauche
+                    nombreDeCouleurAGauche = VerificationDestructionGauche(numLigne, numColonne-1, plateau, couleurADetruire, nombreDeCouleurAGauche, positionCouleurADetruire)
+                    #Plus vérification en haut
+                    nombreDeCouleurAGauche += VerificationDestructionHaut(numLigne-1, numColonne, plateau, couleurADetruire, 0, positionCouleurADetruire)
+                    #Plus vérification en bas
+                    nombreDeCouleurAGauche += VerificationDestructionBas(numLigne+1, numColonne, plateau, couleurADetruire, 0, positionCouleurADetruire)
             
     return nombreDeCouleurAGauche
 
@@ -20,13 +20,13 @@ def VerificationDestructionBas(numLigne, numColonne, plateau, couleurADetruire, 
             if positionCouleurADetruire[numLigne][numColonne] != couleurADetruire:
                 positionCouleurADetruire[numLigne][numColonne] = couleurADetruire
                 nombreDeCouleurEnBas += 1
-            if numLigne+1 < len(plateau):
-                #verification en bas
-                nombreDeCouleurEnBas = VerificationDestructionBas(numLigne+1, numColonne, plateau, couleurADetruire, nombreDeCouleurEnBas, positionCouleurADetruire)
-                #Plus verification a gauche
-                nombreDeCouleurEnBas += VerificationDestructionGauche(numLigne+1, numColonne, plateau, couleurADetruire, 0, positionCouleurADetruire)
-                #Plus verification à droite
-                nombreDeCouleurEnBas += VerificationDestructionDroite(numLigne, numColonne+1, plateau, couleurADetruire, 0, positionCouleurADetruire)
+                if numLigne+1 < len(plateau):
+                    #verification en bas
+                    nombreDeCouleurEnBas = VerificationDestructionBas(numLigne+1, numColonne, plateau, couleurADetruire, nombreDeCouleurEnBas, positionCouleurADetruire)
+                    #Plus verification a gauche
+                    nombreDeCouleurEnBas += VerificationDestructionGauche(numLigne+1, numColonne, plateau, couleurADetruire, 0, positionCouleurADetruire)
+                    #Plus verification à droite
+                    nombreDeCouleurEnBas += VerificationDestructionDroite(numLigne, numColonne+1, plateau, couleurADetruire, 0, positionCouleurADetruire)
     
     return nombreDeCouleurEnBas
 
@@ -36,13 +36,13 @@ def VerificationDestructionHaut(numLigne, numColonne, plateau, couleurADetruire,
             if positionCouleurADetruire[numLigne][numColonne] != couleurADetruire:
                 positionCouleurADetruire[numLigne][numColonne] = couleurADetruire
                 nombreCouleurEnHaut += 1
-            if numLigne-1 >= 0:#verification sur les bords
-                #verification en haut
-                nombreCouleurEnHaut = VerificationDestructionHaut(numLigne-1, numColonne, plateau, couleurADetruire, nombreCouleurEnHaut, positionCouleurADetruire)
-                #Plus verification a droite
-                nombreCouleurEnHaut += VerificationDestructionDroite(numLigne, numColonne+1, plateau, couleurADetruire, 0, positionCouleurADetruire)
-                #Plus verification a gauche
-                nombreCouleurEnHaut += VerificationDestructionGauche(numLigne, numColonne-1, plateau, couleurADetruire, 0, positionCouleurADetruire)
+                if numLigne-1 >= 0:#verification sur les bords
+                    #verification en haut
+                    nombreCouleurEnHaut = VerificationDestructionHaut(numLigne-1, numColonne, plateau, couleurADetruire, nombreCouleurEnHaut, positionCouleurADetruire)
+                    #Plus verification a droite
+                    nombreCouleurEnHaut += VerificationDestructionDroite(numLigne, numColonne+1, plateau, couleurADetruire, 0, positionCouleurADetruire)
+                    #Plus verification a gauche
+                    nombreCouleurEnHaut += VerificationDestructionGauche(numLigne, numColonne-1, plateau, couleurADetruire, 0, positionCouleurADetruire)
     
     return nombreCouleurEnHaut
 
@@ -52,13 +52,13 @@ def VerificationDestructionDroite(numLigne, numColonne,plateau,couleurADetruire,
             if positionCouleurADetruire[numLigne][numColonne] != couleurADetruire:
                 positionCouleurADetruire[numLigne][numColonne] = couleurADetruire
                 nombreCouleurADroite += 1
-            if numColonne+1 < len(plateau):#verification sur les bords
-                #verification a droire
-                nombreCouleurADroite = VerificationDestructionDroite(numLigne,numColonne+1,plateau,couleurADetruire,nombreCouleurADroite,positionCouleurADetruire)
-                #Plus vérification en haut
-                nombreCouleurADroite += VerificationDestructionHaut(numLigne-1, numColonne, plateau, couleurADetruire, 0, positionCouleurADetruire)
-                #Plus verification en bas
-                nombreCouleurADroite += VerificationDestructionBas(numLigne+1, numColonne, plateau, couleurADetruire, 0, positionCouleurADetruire)
+                if numColonne+1 < len(plateau):#verification sur les bords
+                    #verification a droire
+                    nombreCouleurADroite = VerificationDestructionDroite(numLigne,numColonne+1,plateau,couleurADetruire,nombreCouleurADroite,positionCouleurADetruire)
+                    #Plus vérification en haut
+                    nombreCouleurADroite += VerificationDestructionHaut(numLigne-1, numColonne, plateau, couleurADetruire, 0, positionCouleurADetruire)
+                    #Plus verification en bas
+                    nombreCouleurADroite += VerificationDestructionBas(numLigne+1, numColonne, plateau, couleurADetruire, 0, positionCouleurADetruire)
             
     return nombreCouleurADroite
 
