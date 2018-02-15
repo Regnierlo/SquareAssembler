@@ -11,10 +11,27 @@ def AffichePlateau(plateau):
                 print(" ",end='',flush=True)
         print("")
 
+
 tailleGrille = 10
+finJeu = False
+nombreCouleurADetruire = 0
+score  = 0
+destructionSelection = False
 plateau = Generateur.Generation(tailleGrille)
-AffichePlateau(plateau)
-print("--")
-i = int(input("Numéro ligne = "))-1
-j = int(input("Numéro colonne = "))-1
-GameEngine.VerificationDestruction(i,j, plateau)
+
+while finJeu == False:
+    AffichePlateau(plateau)
+    print("--")
+    i = int(input("Numéro ligne = "))-1
+    j = int(input("Numéro colonne = "))-1
+    nombreCouleurADetruire = GameEngine.VerificationDestruction(i,j, plateau,True)
+    destructionSelection = GameEngine.PeutOnDetruire(nombreCouleurADetruire)
+    if destructionSelection == True:
+        for i in range(tailleGrille):
+            GameEngine.ReplacementDesCubes(plateau)
+        finJeu = GameEngine.VerificationFinJeu(plateau)
+        GameEngine.CalculScore()
+    else:
+        print("Impossible de détruire la sélection")
+    
+print("Votre score est de : " + str(score))
