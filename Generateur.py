@@ -1,5 +1,6 @@
 import random
 from test.sortperf import flush
+import array
 
 def QuantiteCouleur(nbCouleur):
     if nbCouleur == 4:
