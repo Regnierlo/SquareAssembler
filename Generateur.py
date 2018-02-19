@@ -2,6 +2,9 @@ import random
 from test.sortperf import flush
 import array
 
+def GetQuantiteCouleur(plateau):
+    return NombreCouleur(len(plateau))
+
 def QuantiteCouleur(nbCouleur):
     if nbCouleur == 4:
         quantiteCouleur = 25
