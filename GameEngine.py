@@ -1,12 +1,13 @@
-def CalculScore():
-    print("Calcul score")
+def CalculScore(score,nombreCouleurADetruire):
+    score+=nombreCouleurADetruire   
+    return score
 
 def VerificationFinJeu(plateau):
     nombreCouleurPouvantEtreDetruit = 0
     i = 0
     j = 0
     taillePlateau = len(plateau)
-    #tant que le tableau n'est pas entierrement parcouru ou qu'on n'a pas trouvé une combinaison d'au moins 3 blocs on continue
+    #tant que le tableau n'est pas entierement parcouru ou qu'on n'a pas trouvé une combinaison d'au moins 3 blocs on continue
     while (i < taillePlateau & j < taillePlateau) | (nombreCouleurPouvantEtreDetruit < 3):
         #on récupère le nombre de bloc pouvant etre détruit
         nombreCouleurPouvantEtreDetruit = VerificationDestruction(i, j, plateau,False)

@@ -1,9 +1,10 @@
-'''import VueJeu
-VueJeu'''
+import VueJeu
+
 import Generateur
 import GameEngine
 
 def AffichePlateau(plateau):
+    tailleGrille = len(plateau)
     for i in range(0,tailleGrille):
         for j in range(0,tailleGrille):
             print(str(plateau[i][j]), end='', flush=True)
@@ -11,8 +12,8 @@ def AffichePlateau(plateau):
                 print(" ",end='',flush=True)
         print("")
 
-
-tailleGrille = 10
+VueJeu
+'''tailleGrille = 10
 finJeu = False
 nombreCouleurADetruire = 0
 score  = 0
@@ -34,4 +35,4 @@ while finJeu == False:
     else:
         print("Impossible de détruire la sélection")
     
-print("Votre score est de : " + str(score))
+print("Votre score est de : " + str(score))'''
