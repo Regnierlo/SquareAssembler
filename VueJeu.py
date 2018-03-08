@@ -40,15 +40,21 @@ def Nouveau(root):
      
     # création canevas
     global can
-    
+    global score
     
     can = Tk.Canvas(root, width=can_width, height=can_height)
+    can.grid(row=0,column=0)
     
     if nbClic >= 2:
         can.destroy()
     
+    score = 0
     can.grid()
     can.bind("<Button-1>", joue)
+    
+    scoreMessage = Label(root,text="0")
+    scoreMessage.config(font=('courier', 15, 'bold'))
+    scoreMessage.grid(row=0,column=1)
     
     AfficheCouleur(plateau,tailleCase)
 
@@ -56,6 +62,7 @@ def Rejouer():
     can.delete(ALL)
     
 def joue(evt):
+    global score
     pos_y = int(evt.x / tailleCase)
     pos_x = int(evt.y / tailleCase)
     
@@ -69,8 +76,13 @@ def joue(evt):
             GameEngine.ReplacementDesCubes(plateau)
         for i in range(tailleGrille):
             GameEngine.ReplacementDesCubesHorizontal(plateau)
+        score = GameEngine.CalculScore(score,nombreCouleurADetruire)
+        #Changement dynamique du score --------------------------------------------------------
+        scoreMessage = Label(root,text=score)
+        scoreMessage.config(font=('courier', 15, 'bold'))
+        scoreMessage.grid(row=0,column=1)
         finJeu = GameEngine.VerificationFinJeu(plateau)
-        GameEngine.CalculScore()
+
     else:
         print("Impossible de détruire la sélection")
         print("i = " + str(pos_x))
@@ -83,7 +95,7 @@ def joue(evt):
     if finJeu == True:
         finJeu = GameEngine.VerificationFinJeu(plateau)
         if finJeu == True:
-            FinDuJeu(10)
+            FinDuJeu(score)
             
 def FinDuJeu(score):
         reponse = messagebox.askokcancel("Fin du jeu !","Votre score est de " + str(score) + ".\nVoulez-vous recommencer ?")

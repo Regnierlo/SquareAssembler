@@ -1,5 +1,6 @@
-def CalculScore():
-    print("Calcul score")
+def CalculScore(score,nombreCouleurADetruire):
+    score+=nombreCouleurADetruire   
+    return score
 
 def VerificationFinJeu(plateau):
     nombreCouleurPouvantEtreDetruit = 0
