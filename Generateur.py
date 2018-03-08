@@ -1,5 +1,5 @@
 import random
-from test.sortperf import flush
+
 import array
 
 def GetQuantiteCouleur(plateau):

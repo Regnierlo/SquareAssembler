@@ -5,17 +5,23 @@ def VerificationFinJeu(plateau):
     nombreCouleurPouvantEtreDetruit = 0
     i = 0
     j = 0
-    taillePlateau = len(plateau)
+    tailleGrille = len(plateau)
+    finVerification = False
     #tant que le tableau n'est pas entierrement parcouru ou qu'on n'a pas trouvé une combinaison d'au moins 3 blocs on continue
-    while (i < taillePlateau & j < taillePlateau) | (nombreCouleurPouvantEtreDetruit < 3):
+    while finVerification == False:
         #on récupère le nombre de bloc pouvant etre détruit
         nombreCouleurPouvantEtreDetruit = VerificationDestruction(i, j, plateau,False)
         
         #on avance dans le tableau
         j += 1
-        if j >= taillePlateau:
+        if j >= tailleGrille:
             j = 0
             i += 1
+            
+        if nombreCouleurPouvantEtreDetruit >= 3:
+            finVerification = True
+        elif i >= tailleGrille:
+            finVerification = True
     
     #on regarde si on peut détruire les blocs
     fin = PeutOnDetruire(nombreCouleurPouvantEtreDetruit)
@@ -28,6 +34,15 @@ def VerificationFinJeu(plateau):
     
     return fin
     
+
+def ReplacementDesCubesHorizontal(plateau):
+    size = len(plateau)-1
+    for i in range(size+1):
+        if plateau[size][i] == 0:
+            for j in range(size+1):
+                if i+1 <= size:
+                    plateau[j][i] = plateau[j][i+1]
+                    plateau[j][i+1] = 0
     
 def ReplacementDesCubes(plateau):
     #on parcourt le tableau en sens inverse
@@ -115,6 +130,8 @@ def VerificationDestructionDroite(numLigne, numColonne,plateau,couleurADetruire,
     return nombreCouleurADroite
 
 def VerificationDestruction(numLigne, numColonne,plateau,detruireSiPossible):
+    nombreCouleurADetruire = 1 #1 car il y a la couleur sélectionner à prendre en compte
+
     #recuperation de la couleur a détruire
     couleurADetruire = plateau[numLigne][numColonne]
     
@@ -125,7 +142,6 @@ def VerificationDestruction(numLigne, numColonne,plateau,detruireSiPossible):
     
     #permet de savoir si la destruction se fera ou non
     destructionOK = False
-    nombreCouleurADetruire = 1 #1 car il y a la couleur sélectionner à prendre en compte
     
     if numColonne+1 < len(plateau):#verification sur les bords
         #On commence à regarder si à droite c'est la meme couleur
