@@ -19,12 +19,25 @@ import queue
 def FermetureFenetre(fenetre):
     fenetre.quit()
     fenetre.destroy() 
+    
+'''
+    Génère le plateau de jeu
+    
+    @param tailleGrille: Taille de la grille (n*n)
+    @param fenetre: Fenetre de jeu
+'''
 def GenerationGrille(tailleGrille,fenetre):
     global plateau 
     plateau = Generateur.Generation(tailleGrille)
     fenetre.quit()
     fenetre.destroy()
   
+'''
+    Déclare une nouvelle fenêtre
+    
+    @param multi: Boolean permettant de savoir s'il s'agit d'une fenêtre à objectif multi joueur ou solo
+    @param oldFenetre: Ancienne fenêtre à fermer
+'''
 def NouvelleFenetre(multi,oldFenetre):
     fenetre = Toplevel()
     label = Label(fenetre,text="Taille de la grille")
@@ -131,6 +144,9 @@ def ModifierPseudo(nouvPseudo,oldFenetre):
     oldFenetre.quit()
     oldFenetre.destroy()
     
+'''
+    Fenêtre de jeu
+'''
 def Nouveau(root):
     NouvelleFenetre(False,None)
     global canPlay
@@ -195,10 +211,16 @@ def LancementJeuMulti():
     periodicCall()
     AfficheCouleur(plateau,tailleCase)
 
+'''
+    Permet de rejouer
+'''
 def Rejouer():
     can.delete(ALL)
     Nouveau(root)
-    
+
+'''
+    Lance un nouveau jeu
+'''
 def joue(evt):
     if canPlay == True:
         global score
@@ -241,13 +263,20 @@ def joue(evt):
             if finJeu == True:
                 FinDuJeu(score)
         Reseaux.EnvoieMessage("[Partage Plateau] : "+Plateau2Str(plateau))
-                
+           
+'''
+    Génère une message box avec le score et demande au joueur s'il veut rejouer
+    
+    @param score: Score du joueur en fin de partie
+'''
 def FinDuJeu(score):
         reponse = messagebox.askokcancel("Fin du jeu !","Votre score est de " + str(score) + ".\nVoulez-vous recommencer ?")
         if reponse == True:
             Rejouer()
+            score = 0
         else:
             can.delete(ALL)  
+
             
 def AfficheCouleurDistant():
     listeAttente.put("affiche")
@@ -276,6 +305,13 @@ def periodicCall():
         #sleep(1)
         #periodicCall()
         root.after(1000, periodicCall)
+        
+'''
+    Affiche le plateau à l'écran
+    
+    @param plateau: Plateau à générer
+    @param tailleCase: taille de chaque case pour les cubes
+'''
 def AfficheCouleur(plateau, tailleCase):
     
     nbCouleur = Generateur.GetQuantiteCouleur(plateau)
@@ -289,7 +325,13 @@ def AfficheCouleur(plateau, tailleCase):
                                 fill = listeCouleur[plateau[i][j]])
 
 
-
+'''
+    Liste des couleurs pouvant être utilisé dans le plateau
+    
+    @param nbCouleur: Nombre de couleur désiré
+    
+    @return: Liste des couleurs utilisées
+'''
 def GenerationCouleur(nbCouleur):
     listeTotaleCouleur = ['White','Red','Blue','Green','Orange','Pink','Yellow','Purple','Brown']
     listeCouleur = listeTotaleCouleur[0:nbCouleur+1]

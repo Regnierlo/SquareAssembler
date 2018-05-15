@@ -1,7 +1,22 @@
+'''
+    Calcul le score en fonction du nombre de couleur détruite
+    
+    @param score: Score actuel
+    @param nombreCouleurADetruire: Nombre additionné au score actuel
+    
+    @return: Le nouveau score
+'''
 def CalculScore(score,nombreCouleurADetruire):
     score+=nombreCouleurADetruire   
     return score
 
+
+'''
+    Vérifie le plateau pour savoir si une combinaison est encore possible.
+
+    @param plateau: plateau du jeu
+    @return: True si aucune combinaison est possible (donc fin du jeu) False sinon
+'''
 def VerificationFinJeu(plateau):
     nombreCouleurPouvantEtreDetruit = 0
     i = 0
@@ -35,7 +50,11 @@ def VerificationFinJeu(plateau):
     
     return fin
     
-
+'''
+    Effectue un replacement des cubes horizontaux
+    
+    @param plateau: Plateau qui subira les modifications 
+'''
 def ReplacementDesCubesHorizontal(plateau):
     size = len(plateau)-1
     for i in range(size+1):
@@ -45,6 +64,11 @@ def ReplacementDesCubesHorizontal(plateau):
                     plateau[j][i] = plateau[j][i+1]
                     plateau[j][i+1] = 0
     
+'''
+    Intervertie les cubes détruits pour les replacer
+    
+    @param plateau: Plateau qui subira les modifcations 
+'''
 def ReplacementDesCubes(plateau):
     #on parcourt le tableau en sens inverse
     for i in range(len(plateau)-1,0,-1):
@@ -55,7 +79,13 @@ def ReplacementDesCubes(plateau):
                 if plateau[i][j] == 0:
                     plateau[i][j] = plateau[i-1][j]
                     plateau[i-1][j] = 0
+  
+'''
+    Detruit les cubes du plateau grâce au tableau indiquant lesquels il faut détruire
     
+    @param plateau: Plateau qui fera ses cubes détruires
+    @param positionCouleurADetruire: Tableau avec les positions des cubes à détruires
+'''  
 def DestructionCube(plateau, positionCouleurADetruire):
     for i in range(len(plateau)):
         for j in range(len(plateau)):
@@ -63,8 +93,18 @@ def DestructionCube(plateau, positionCouleurADetruire):
             if positionCouleurADetruire[i][j] != 0:
                 plateau[i][j] = 0
     
+'''
+    Vérifie si le cube est à détruire, si oui, on l'ajoute au nombreDeCouleurAGauche  
     
-
+    @param numLigne: Numéro de la ligne à vérifier
+    @param numColonne: Numéro de la colonne à vérifier
+    @param plateau: Plateau où l'action sera effectuée
+    @param couleurADetruire: Couleur à détruire permettant d'effectuer la conparaison
+    @param nombreDeCouleurAGauche: Nombre de couleur à détruire déjà reconnu sur la gauche
+    @param positionCouleurADetruire: Tableau permettant de recenser les cubes à détruire
+    
+    @return Retourne le nombre de couleur à détruire
+'''
 def VerificationDestructionGauche(numLigne, numColonne, plateau, couleurADetruire, nombreDeCouleurAGauche, positionCouleurADetruire):
     if numColonne >= 0:    
         if plateau[numLigne][numColonne] == couleurADetruire:
@@ -81,6 +121,18 @@ def VerificationDestructionGauche(numLigne, numColonne, plateau, couleurADetruir
             
     return nombreDeCouleurAGauche
 
+'''
+    Vérifie si le cube est à détruire, si oui, on l'ajoute au nombreDeCouleurEnBas  
+    
+    @param numLigne: Numéro de la ligne à vérifier
+    @param numColonne: Numéro de la colonne à vérifier
+    @param plateau: Plateau où l'action sera effectuée
+    @param couleurADetruire: Couleur à détruire permettant d'effectuer la conparaison
+    @param nombreDeCouleurEnBas: Nombre de couleur à détruire déjà reconnu sur le bas
+    @param positionCouleurADetruire: Tableau permettant de recenser les cubes à détruire
+    
+    @return Retourne le nombre de couleur à détruire
+'''
 def VerificationDestructionBas(numLigne, numColonne, plateau, couleurADetruire, nombreDeCouleurEnBas, positionCouleurADetruire):
     if numLigne < len(plateau):
         if plateau[numLigne][numColonne] == couleurADetruire:
@@ -97,6 +149,18 @@ def VerificationDestructionBas(numLigne, numColonne, plateau, couleurADetruire, 
     
     return nombreDeCouleurEnBas
 
+'''
+    Vérifie si le cube est à détruire, si oui, on l'ajoute au nombreCouleurEnHaut  
+    
+    @param numLigne: Numéro de la ligne à vérifier
+    @param numColonne: Numéro de la colonne à vérifier
+    @param plateau: Plateau où l'action sera effectuée
+    @param couleurADetruire: Couleur à détruire permettant d'effectuer la conparaison
+    @param nombreCouleurEnHaut: Nombre de couleur à détruire déjà reconnu sur le haut
+    @param positionCouleurADetruire: Tableau permettant de recenser les cubes à détruire
+    
+    @return Retourne le nombre de couleur à détruire
+'''
 def VerificationDestructionHaut(numLigne, numColonne, plateau, couleurADetruire,nombreCouleurEnHaut,positionCouleurADetruire):
     if numLigne >= 0:
         if plateau[numLigne][numColonne] == couleurADetruire:
@@ -113,6 +177,18 @@ def VerificationDestructionHaut(numLigne, numColonne, plateau, couleurADetruire,
     
     return nombreCouleurEnHaut
 
+'''
+    Vérifie si le cube est à détruire, si oui, on l'ajoute au nombreCouleurADroite  
+    
+    @param numLigne: Numéro de la ligne à vérifier
+    @param numColonne: Numéro de la colonne à vérifier
+    @param plateau: Plateau où l'action sera effectuée
+    @param couleurADetruire: Couleur à détruire permettant d'effectuer la conparaison
+    @param nombreCouleurADroite: Nombre de couleur à détruire déjà reconnu sur la droite
+    @param positionCouleurADetruire: Tableau permettant de recenser les cubes à détruire
+    
+    @return Retourne le nombre de couleur à détruire
+'''
 def VerificationDestructionDroite(numLigne, numColonne,plateau,couleurADetruire,nombreCouleurADroite,positionCouleurADetruire):
     if numColonne < len(plateau):
         if plateau[numLigne][numColonne] == couleurADetruire:
@@ -130,6 +206,16 @@ def VerificationDestructionDroite(numLigne, numColonne,plateau,couleurADetruire,
             
     return nombreCouleurADroite
 
+'''
+    Verifie si la couleur sélectionnée peut être détruite en vérifiant ses voisins
+    
+    @param numLigne: Numéro de la ligne sélectionnée
+    @param numColonne: Numéro de la colonne sélectionnée
+    @param plateau: Plateau où la vérification se fera
+    @param detruireSiPossible: Boolean pour savoir si on doit détruire si possible
+
+    @return: Le nombre de couleur à détruire
+'''
 def VerificationDestruction(numLigne, numColonne,plateau,detruireSiPossible):
     nombreCouleurADetruire = 1 #1 car il y a la couleur sélectionner à prendre en compte
 
@@ -168,6 +254,13 @@ def VerificationDestruction(numLigne, numColonne,plateau,detruireSiPossible):
     #On retourne le nombre de blocs a détruire pour l'utiliser sur le score plus tard
     return nombreCouleurADetruire
 
+'''
+    Vérifie si c'est possible de détruire les blocs
+    
+    @param nombreCouleurADetruire: Nombre de couleur à détruire
+    
+    @return: True si la destruction est autorisé, False sinon
+'''
 def PeutOnDetruire(nombreCouleurADetruire):
     destruction = False
     #Si on peut détruire plus de 3 blocs alors on dis que c'est vrai
