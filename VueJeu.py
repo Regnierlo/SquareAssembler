@@ -197,6 +197,7 @@ def LancementJeuMulti():
 
 def Rejouer():
     can.delete(ALL)
+    Nouveau(root)
     
 def joue(evt):
     if canPlay == True:
@@ -243,11 +244,16 @@ def joue(evt):
                 
 def FinDuJeu(score):
         reponse = messagebox.askokcancel("Fin du jeu !","Votre score est de " + str(score) + ".\nVoulez-vous recommencer ?")
-        Rejouer()
+        if reponse == True:
+            Rejouer()
+        else:
+            can.delete(ALL)  
+            
 def AfficheCouleurDistant():
     listeAttente.put("affiche")
     AffichePlateau(plateau)
     #http://code.activestate.com/recipes/82965/
+
 def processIncoming():
     """
     Handle all the messages currently in the queue (if any).
