@@ -3,7 +3,9 @@ Created on 14 mai 2018
 
 @author: hugo_
 '''
-#convertis un pleateau en string
+'''
+convertis un pleateau en string
+'''
 from Generateur import Generation
 def Plateau2Str(plateau):
     res=""
@@ -15,7 +17,9 @@ def Plateau2Str(plateau):
             
         res=res+"|"
     return res
-#conversis un string en plateau
+'''
+conversis un string en plateau
+'''
 def Str2Plateau(chaine):
     plateau = chaine.split("|")
     for y in range(0, len(plateau)):
